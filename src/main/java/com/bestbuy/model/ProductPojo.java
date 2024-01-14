@@ -1,52 +1,25 @@
 package com.bestbuy.model;
 
-import java.util.List;
-
-
 public class ProductPojo {
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String programme;
-    private List<String> courses;
 
-    public String getFirstName() {
-        return firstName;
-    }
+    private int productId;
+    private String name;
+    private String type;
+    private double price;
+    private String upc;
+    private int shipping;
+    private String description;
+    private String manufacturer;
+    private String model;
+    private String url;
+    private String image;
+    private String createdAt;
+    private String updatedAt;
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
 
-    public String getLastName() {
-        return lastName;
-    }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
 
-    public String getEmail() {
-        return email;
-    }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
-    public String getProgramme() {
-        return programme;
-    }
 
-    public void setProgramme(String programme) {
-        this.programme = programme;
-    }
-
-    public List<String> getCourses() {
-        return courses;
-    }
-
-    public void setCourses(List<String> courses) {
-        this.courses = courses;
-    }
 }
