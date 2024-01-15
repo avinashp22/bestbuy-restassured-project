@@ -56,7 +56,7 @@ public class ProductsExtractionTest {
     public void test001() {
         int limit = response.extract().path("limit");
         System.out.println("------------------StartingTest---------------------------");
-        System.out.println("The value of limit is : " + limit);
+        System.out.println("The limit is : " + limit);
         System.out.println("------------------End of Test---------------------------");
 
     }
@@ -66,7 +66,7 @@ public class ProductsExtractionTest {
     public void test002() {
         int total = response.extract().path("total");
         System.out.println("------------------StartingTest---------------------------");
-        System.out.println("The value of total is : " + total);
+        System.out.println("The total is : " + total);
         System.out.println("------------------End of Test---------------------------");
 
     }
@@ -76,7 +76,7 @@ public class ProductsExtractionTest {
     public void test003() {
         String name = response.extract().path("data[4].name");
         System.out.println("------------------StartingTest---------------------------");
-        System.out.println("The value of total is : " + name);
+        System.out.println("The name of 5th product is : " + name);
         System.out.println("------------------End of Test---------------------------");
 
     }
@@ -105,7 +105,7 @@ public class ProductsExtractionTest {
     public void test006() {
         List<Integer> sizeD = response.extract().path("data");
         System.out.println("------------------StartingTest---------------------------");
-        System.out.println("The value of size is : " + sizeD.size());
+        System.out.println("The size of the data list is : " + sizeD.size());
         System.out.println("------------------End of Test---------------------------");
     }
 

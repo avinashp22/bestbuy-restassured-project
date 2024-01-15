@@ -57,7 +57,7 @@ public class StoresExtractionTest {
     public void test001() {
         int limit = response.extract().path("limit");
         System.out.println("------------------StartingTest---------------------------");
-        System.out.println("The value of limit is : " + limit);
+        System.out.println("The limit is : " + limit);
         System.out.println("------------------End of Test---------------------------");
 
     }
@@ -77,7 +77,7 @@ public class StoresExtractionTest {
     public void test003() {
         String name = response.extract().path("data[4].name");
         System.out.println("------------------StartingTest---------------------------");
-        System.out.println("The name of 5th store : " + name);
+        System.out.println("The name of 5th store is : " + name);
         System.out.println("------------------End of Test---------------------------");
 
     }
@@ -96,7 +96,7 @@ public class StoresExtractionTest {
     public void test005() {
         List<String> storeIds = response.extract().path("data.id");
         System.out.println("------------------StartingTest---------------------------");
-        System.out.println("The names of the all stores are : " + storeIds);
+        System.out.println("The storeId of the all stores are : " + storeIds);
         System.out.println("------------------End of Test---------------------------");
     }
 
@@ -106,7 +106,7 @@ public class StoresExtractionTest {
         List<Integer> storeId = response.extract().path("data.id");
         storeId.size();
         System.out.println("------------------StartingTest---------------------------");
-        System.out.println("List of size is : " + storeId);
+        System.out.println("Size of data is : " + storeId);
         System.out.println("------------------End of Test---------------------------");
     }
 
@@ -116,7 +116,7 @@ public class StoresExtractionTest {
         List<HashMap<String, ?>> values = response.extract().path("data.findAll{it.name=='St Cloud'}");
 
         System.out.println("------------------StartingTest---------------------------");
-        System.out.println("all the value of the store where store name = St Cloud are: " + values);
+        System.out.println("St Cloud Stores are: " + values);
         System.out.println("------------------End of Test---------------------------");
     }
 
@@ -184,7 +184,7 @@ public class StoresExtractionTest {
     public void test014() {
         List<Integer> store = response.extract().path("data.findAll{it.name =='Rochester'}.name");
         System.out.println("------------------StartingTest---------------------------");
-        System.out.println("Find the store names Where state = ND" + store.size());
+        System.out.println("Total number of services for the store where store name = Rochester" + store.size());
         System.out.println("------------------End of Test---------------------------");
 
     }
@@ -194,7 +194,7 @@ public class StoresExtractionTest {
     public void test015() {
         List<HashMap<String, ?>> values = response.extract().path("data.findAll{it.services.name == 'Windows Store'}.createdAt");
         System.out.println("------------------StartingTest---------------------------");
-        System.out.println("The getExact All Services With 'Windows Store' are: " + values);
+        System.out.println("The createdAt for all services whose name = “Windows Store” are: " + values);
         System.out.println("------------------End of Test---------------------------");
     }
 
