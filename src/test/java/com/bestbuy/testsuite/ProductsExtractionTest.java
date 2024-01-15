@@ -40,8 +40,7 @@ public class ProductsExtractionTest {
 //31. Get all the descriptions of all the products
 //32. Get id of all the all categories of all the products
 //33. Find the product names Where type = HardGood
-//34. Find the Total number of categories for the product where product name = Duracell - AA
-//1.5V CopperTop Batteries (4-Pack)
+//34. Find the Total number of categories for the product where product name = Duracell - AA1.5V CopperTop Batteries (4-Pack)
 //35. Find the createdAt for all products whose price < 5.49
 //36. Find the name of all categories Where product name = “Energizer - MAX Batteries AA (4-Pack)”
 //37. Find the manufacturer of all the products
@@ -52,126 +51,188 @@ public class ProductsExtractionTest {
 
 
 
-    // 1) Extract the value of limit
+    //21. Extract the limit
     @Test
     public void test001() {
-
         int limit = response.extract().path("limit");
-
         System.out.println("------------------StartingTest---------------------------");
         System.out.println("The value of limit is : " + limit);
         System.out.println("------------------End of Test---------------------------");
 
     }
 
-    // 2) Extract the list of IDs of all products
+    //22. Extract the total
     @Test
     public void test002() {
-
-        List<Integer> listOfIds = response.extract().path("data.id");
-
+        int total = response.extract().path("total");
         System.out.println("------------------StartingTest---------------------------");
-        System.out.println("List of Ids are : " + listOfIds);
+        System.out.println("The value of total is : " + total);
         System.out.println("------------------End of Test---------------------------");
 
     }
 
-    // 3) Extract first product name from data by providing list index value
+    //23. Extract the name of 5th product
     @Test
     public void test003() {
-        String productName = response.extract().path("data[0].name");
-
+        String name = response.extract().path("data[4].name");
         System.out.println("------------------StartingTest---------------------------");
-        System.out.println("The first product name is : " + productName);
+        System.out.println("The value of total is : " + name);
         System.out.println("------------------End of Test---------------------------");
+
     }
 
-    // 4) Get the categories list of the first data
+    //24. Extract the names of all the products
     @Test
     public void test004() {
-        // Homework
-
+        List<String> productNames = response.extract().path("data.name");
         System.out.println("------------------StartingTest---------------------------");
-        System.out.println("The Categories list are : ");
+        System.out.println("Extract the names of all the products : " + productNames);
         System.out.println("------------------End of Test---------------------------");
-
     }
 
-    // 5)Print the size of data
+    //25. Extract the productId of all the products
     @Test
     public void test005() {
-        //Homework
+        List<String> productId = response.extract().path("data.id");
         System.out.println("------------------StartingTest---------------------------");
-        System.out.println("The size of the data is : ");
+        System.out.println("Extract the productId of all the products: " + productId);
         System.out.println("------------------End of Test---------------------------");
+
     }
 
-    // 6) Get All the products Name from data
+    //26. Print the size of the data list
     @Test
     public void test006() {
-        //Homework  (data.name)
-
+        List<Integer> sizeD = response.extract().path("data");
         System.out.println("------------------StartingTest---------------------------");
-        System.out.println("The names of the products are : ");
+        System.out.println("The value of size is : " + sizeD.size());
         System.out.println("------------------End of Test---------------------------");
     }
 
-    // 7) Get all the values for Name == Duracell - AA Batteries (8-Pack)
+    //27. Get all the value of the product where product name = Energizer - MAX Batteries AA (4-Pack)
     @Test
     public void test007() {
-        List<HashMap<String, ?>> values = response.extract().path("data.findAll{it.name == 'Duracell - AA Batteries (8-Pack)'}");
-
+        List<HashMap<String, ?>> values = response.extract().path("data.findAll{it.name=='Energizer - MAX Batteries AA (4-Pack)'}");
         System.out.println("------------------StartingTest---------------------------");
-        System.out.println("The values for product name 'Duracell - AA Batteries (8-Pack)' are: " + values);
+        System.out.println("Get all the value of the product where product name = Energizer - MAX Batteries AA (4-Pack) : " + values);
         System.out.println("------------------End of Test---------------------------");
     }
 
-    // 8) Get the price for product Name == Duracell - D Batteries (4-Pack)
+    //28. Get the model of the product where product name = Energizer - N Cell E90 Batteries (2-Pack)
     @Test
     public void test008() {
-        List<Double> price = response.extract().path("data.findAll{it.name == 'Duracell - D Batteries (4-Pack)'}.price");
-
+        String productModel = response.extract().path("data[8].model");
         System.out.println("------------------StartingTest---------------------------");
-        System.out.println("The price of product name 'Duracell - D Batteries (4-Pack)' is : " + price);
+        System.out.println(" Get the model of the product where product name = Energizer - N Cell E90 Batteries (2-Pack) : " + productModel);
         System.out.println("------------------End of Test---------------------------");
     }
 
-    // 9) Get the Names of products which have price less than 16.99
+
+    //29. Get all the categories of 8th products
     @Test
     public void test009() {
-        List<String> productsName = response.extract().path("data.findAll{it.price < 16.99}.name");
-
+        List<HashMap<String, ?>> categories = response.extract().path("data[7].categories");
         System.out.println("------------------StartingTest---------------------------");
-        System.out.println("The names of products that price is less than 16.99 are: " + productsName);
+        System.out.println("Get all the categories of 8th products: " + categories);
         System.out.println("------------------End of Test---------------------------");
     }
 
-    // 10) Get the manufacturer of products whose name Start = Ene
+    //30. Get categories of the store where product id = 150115
     @Test
     public void test010() {
-        List<?> menuList = response.extract().path("data.findAll{it.name.startsWith('Ene')}.manufacturer");
-
+        List<HashMap<String, ?>> storeCategories = response.extract().path("data[3].categories");
         System.out.println("------------------StartingTest---------------------------");
-        System.out.println("The manufacturer of products whose name Start = Ene are: " + menuList);
+        System.out.println("Get categories of the store where product id = 150115 : " + storeCategories);
         System.out.println("------------------End of Test---------------------------");
     }
 
-    // 11) Get the price of products whose name end with = Vehicles
+    //31. Get all the descriptions of all the products
     @Test
     public void test011() {
-        List<?> priceList = response.extract().path("data.findAll{it.name.endsWith('Black')}.price");
+        List<String> productDescription = response.extract().path("data.description");
         System.out.println("------------------StartingTest---------------------------");
-        System.out.println("The prices of products whose name end with = Vehicles are: " + priceList);
+        System.out.println("Get all the descriptions of all the products: " + productDescription);
         System.out.println("------------------End of Test---------------------------");
     }
 
-    // 12) Get the id of product whose name is 'Energizer - N Cell E90 Batteries (2-Pack)'
+    //32. Get id of all the all categories of all the products
     @Test
     public void test012() {
-        List<Integer> productListMap = response.extract().path("data.findAll{it.name == 'Energizer - N Cell E90 Batteries (2-Pack)'}.id");
-
+        List<Integer> categoryIds= response.extract().path("data.categories.id");
         System.out.println("------------------StartingTest---------------------------");
-        System.out.println("The id of product whose name 'Energizer - N Cell E90 Batteries (2-Pack)' is : " +productListMap.get(0));
+        System.out.println("Get id of all the all categories of all the products : " + categoryIds);
+        System.out.println("------------------End of Test---------------------------");
+    }
+
+    //33. Find the product names Where type = HardGood
+    @Test
+    public void test013() {
+        List<String>productNames=response.extract().path("data.findAll{it.type=='HardGood'}.name");
+        System.out.println("------------------StartingTest---------------------------");
+        System.out.println("Find the product names Where type = HardGood: " + productNames);
+        System.out.println("------------------End of Test---------------------------");
+    }
+
+    //34. Find the Total number of categories for the product where product name = Duracell - AA 1.5V CopperTop Batteries (4-Pack)
+    @Test
+    public void test014() {
+        List<String>numberOfCategories=response.extract().path("data.findAll{it.productName='Duracell - AA 1.5V CopperTop Batteries (4-Pack)'}.categories");
+        System.out.println("------------------StartingTest---------------------------");
+        System.out.println("Find the Total number of categories for the product where product name = Duracell - AA 1.5V CopperTop Batteries (4-Pack) : " + numberOfCategories);
+        System.out.println("------------------End of Test---------------------------");
+    }
+
+    //35. Find the createdAt for all products whose price < 5.49
+    @Test
+    public void test015() {
+        List<String>createdAt=response.extract().path("data.findAll{it.price<5.49}.createdAt");
+        System.out.println("------------------StartingTest---------------------------");
+        System.out.println("Find the createdAt for all products whose price < 5.49 : " + createdAt );
+        System.out.println("------------------End of Test---------------------------");
+    }
+
+    //36. Find the name of all categories Where product name = “Energizer - MAX Batteries AA (4-Pack)”
+    @Test
+    public void test016() {
+        List<String>categories=response.extract().path("data.findAll{it.name=='Energizer - MAX Batteries AA (4-Pack)'}.categories");
+        System.out.println("------------------StartingTest---------------------------");
+        System.out.println("Find the name of all categories Where product name = “Energizer - MAX Batteries AA (4-Pack): " +categories );
+        System.out.println("------------------End of Test---------------------------");
+    }
+
+    //37. Find the manufacturer of all the products
+    @Test
+    public void test017() {
+        List<String>manufacturer=response.extract().path("data.manufacturer");
+        System.out.println("------------------StartingTest---------------------------");
+        System.out.println("Find the manufacturer of all the products : " + manufacturer);
+        System.out.println("------------------End of Test---------------------------");
+    }
+
+    //38. Find the image of products whose manufacturer is = Energizer
+    @Test
+    public void test018() {
+        List<String>productImage=response.extract().path("data.findAll{it.manufacturer=='Energizer'}.image");
+        System.out.println("------------------StartingTest---------------------------");
+        System.out.println("Find the image of products whose manufacturer is = Energizer " +productImage);
+        System.out.println("------------------End of Test---------------------------");
+    }
+
+    //39. Find the createdAt for all categories products whose price > 5.99
+    @Test
+    public void test019() {
+        List<HashMap<String,?>> createdAt = response.extract().path("data.findAll{it.price > 5.99}.createdAt");
+        System.out.println("------------------StartingTest---------------------------");
+        System.out.println(" Find the createdAt for all categories products whose price > 5.99" + createdAt);
+        System.out.println("------------------End of Test---------------------------");
+    }
+
+    //40. Find the uri of all the products
+    @Test
+    public void test020() {
+        List<String> url = response.extract().path("data.url");
+        System.out.println("------------------StartingTest---------------------------");
+        System.out.println("Find the uri of all the products " +url);
         System.out.println("------------------End of Test---------------------------");
     }
 

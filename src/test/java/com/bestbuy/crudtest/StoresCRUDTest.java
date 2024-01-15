@@ -1,90 +1,112 @@
 package com.bestbuy.crudtest;
 
 
-import com.restful.booker.model.Pojo;
-import com.restful.booker.testbase.TestBase;
-import com.restful.booker.utils.TestUtils;
+import com.bestbuy.model.StorePojo;
+import com.bestbuy.testbase.StoreTestBase;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Map;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.hasValue;
 
 
-public class StoresCRUDTest extends TestBase {
-    static String firstName = TestUtils.getRandomValue() + "PrimeUser";
-    static String lastName = TestUtils.getRandomValue() + "PrimeUser";
-    static String programme = "Api Testing";
-    static String email = TestUtils.getRandomValue() + "xyz@gmail.com";
+public class StoresCRUDTest extends StoreTestBase {
 
-    static int studentId;
+    static int id;
+    static String name="Brent Cross";
+    static String type="Mall";
+    static String address="123 Prime Road";
+    static String address2="Wembley";
+    static String city="Brent";
+    static String state="NV";
+    static String zip="22183";
+    static double lat=51.57620;
+    static  double lng=11.2234;
+    static String hours="Mon: 9-9; Tue: 9-9; Wed: 9-9; Thurs: 9-9; Fri: 9-9; Sat: 9-9; Sun: 11-4";
 
 
     @Test
-    public void test001() {
-        List<String> courseList = new ArrayList<>();
-        courseList.add("Java");
-        courseList.add("Rest Assured");
+    public void averifyStoreCreatedSuccessfully() {
+        Map<String,Object> services = new HashMap<>();
+        services.put("name","Geek Squad Services");
+        services.put("id","01");
+        StorePojo storePojo=new StorePojo();
+        storePojo.setName(name);
+        storePojo.setType(type);
+        storePojo.setAddress(address);
+        storePojo.setAddress2(address2);
+        storePojo.setCity(city);
+        storePojo.setState(state);
+        storePojo.setZip(zip);
+        storePojo.setLat(lat);
+        storePojo.setLng(lng);
+        storePojo.setHours(hours);
+        storePojo.setServices(services);
 
-        Pojo Pojo = new Pojo();
-        Pojo.setFirstName(firstName);
-        Pojo.setLastName(lastName);
-        Pojo.setEmail(email);
-        Pojo.setProgramme(programme);
-        Pojo.setCourses(courseList);
-
-        Response response = given()
+        ValidatableResponse response= given()
                 .contentType(ContentType.JSON)
+                .header("Accept","application/json")
                 .when()
-                .body(Pojo)
-                .post();
-        response.prettyPrint();
-        response.then().statusCode(201);
-
+                .body(storePojo)
+                .post()
+                .then().log().body().statusCode(201);
+        id=response.extract().path("id");
     }
 
     @Test
-    public void test002() {
-        String s1 = "findAll{it.firstName == '";
-        String s2 = "'}.get(0)";
+    public void bVerifyStoreReadSuccessfully() {
 
-        ValidatableResponse response =
-         given()
+        int sId=given()
+                .pathParams("id",id)
                 .when()
-                .get("/list")
-                .then().statusCode(200);
-        HashMap<String, Object> studentMap = response.extract()
-                .path(s1 + firstName + s2);
-        response.body(s1 + firstName + s2, hasValue(firstName));
-        studentId = (int) studentMap.get("id");
-    }
-
-    @Test
-    public void test003() {
+                .get("/{id}")
+                .then().statusCode(200)
+                .extract()
+                .path("id");
+        Assert.assertEquals(sId,id);
 
     }
 
+
     @Test
-    public void test004() {
+    public void cverifyStoreUpdateSuccessfully() {
+        StorePojo storePojo=new StorePojo();
+        storePojo.setName("Westfield");
+        storePojo.setType(type);
+        storePojo.setAddress(address);
+        storePojo.setAddress2(address2);
+        storePojo.setCity(city);
+        storePojo.setState(state);
+        storePojo.setZip(zip);
+        storePojo.setLat(lat);
+        storePojo.setLng(lng);
+        storePojo.setHours("Mon: 8-5; Tue: 8-5; Wed: 8-5; Thurs: 8-5; Fri: 8-5; Sat: 8-5; Sun: 8-5");
+        Response response= given()
+                .header("Content-Type", "application/json")
+                .pathParams("id", id)
+                .when()
+                .body(storePojo)
+                .patch("/{id}");
+        response.then().log().body().statusCode(200);
+
+    }
+
+    @Test
+    public void zVerifyStoreDeleteSuccessfully() {
+
         given()
-                .pathParam("id", studentId)
+                .pathParam("id", id)
                 .when()
                 .delete("/{id}")
                 .then()
-                .statusCode(204);
+                .statusCode(200);
 
-        given()
-                .pathParam("id",studentId)
-                .when()
-                .get("/{id}")
-                .then()
-                .statusCode(404);
     }
+
 
 }

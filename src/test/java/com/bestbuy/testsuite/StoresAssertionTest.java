@@ -38,58 +38,64 @@ public class StoresAssertionTest {
 
 
 
-    // 1) Verify that the products of limit is equal to 10
+    //  1. Verify the if the total is equal to 1561
     @Test
     public void test001() {
-        response.body("limit", equalTo(10));
+        response.body("total", equalTo(1561));
     }
 
-    // 2) Verify that the products of total is = 51957
+    //2. Verify the if the stores of limit is equal to 10
     @Test
     public void test002() {
-        //Homework
-    }
+        response.body("limit", equalTo(10));
 
-    // 3) Check the Name 'Duracell - AA Batteries (8-Pack)' is available in List of product's name
+    }
+    //3. Check the single ‘Name’ in the Array list (Inver Grove Heights)
     @Test
     public void test003() {
-        response.body("data.name", hasItem("Duracell - AA Batteries (8-Pack)"));
-    }
+        response.body("data.name",hasItem("Inver Grove Heights"));
 
-    // 4) Check Multiple Names (Energizer - MAX Batteries AA (4-Pack), Duracell - 9V Batteries (2-Pack)) are available in list of product's name
+    }
+    //4. Check the multiple ‘Names’ in the ArrayList (Roseville, Burnsville, Maplewood)
     @Test
-    public void test004() {
-        //Homework
+    public void test004(){
+        response.body("data.name",hasItems("Roseville","Burnsville","Maplewood"));
     }
+    //5. Verify the storied=7 inside storeservices of the third store of second services
 
-    // 5) Verify the 'name' field inside first categories map for the first data (Checking Values inside Map using hasKey(entityType))
     @Test
     public void test005() {
-        response.body("data[0].categories[0]", hasKey("name"));
+        response.body("data[2].services[2].storeservices.storeId",equalTo(7));
 
     }
-
-    // 6) Check entry 'manufacturer = Energizer' is inside map of product name is 'Energizer - N Cell E90 Batteries (2-Pack)'
+    //6. Check hash map values ‘createdAt’ inside storeservices map where store name = Roseville
     @Test
-    public void test006() {
-        response.body("data.findAll{it.name == 'Energizer - N Cell E90 Batteries (2-Pack)'}", hasItem(hasEntry("manufacturer", "Energizer")));
-
+    public void test006(){
+        response.body("data.findAll{it.name='Roseville'}.services",hasItem(hasItem(hasKey("createdAt"))));
     }
 
-    // 7) Checking multiple values in the same statement
     @Test
-    public void test007() {
-        response.body("limit", equalTo(10))
-                .body("data.name", hasItem("Duracell - AA Batteries (8-Pack)"))
-                .body("data[0].categories[0]", hasKey("name"));
+//7. Verify the state = MN of forth store
+    public void test007(){
+        response.body("data[3]",hasEntry("state","MN"));
     }
 
-    // 8) Logical Assertions
+
+    //8. Verify the store name = Roseville of 9th store
     @Test
-    public void test008() {
-        response.body("limit",equalTo(10))
-                .body("limit", lessThan(11))
-                .body("limit", greaterThan(9))
-                .body("limit", greaterThanOrEqualTo(10));
+    public void test008(){
+        response.body("data[8].name", equalTo("Roseville"));
+    }
+
+    //9. Verify the storeId = 11 for the 6th store
+    @Test
+    public void test009(){
+        response.body("data[5].services[1].storeservices.storeId", equalTo(11));
+    }
+
+    //10. Verify the serviceId = 4 for the 7th store of forth service
+    @Test
+    public void test010(){
+        response.body("data[6].services[3].id",equalTo(4));
     }
 }

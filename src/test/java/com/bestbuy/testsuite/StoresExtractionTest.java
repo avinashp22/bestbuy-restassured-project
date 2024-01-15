@@ -52,126 +52,194 @@ public class StoresExtractionTest {
 
 
 
-    // 1) Extract the value of limit
+    //1. Extract the limit
     @Test
     public void test001() {
-
         int limit = response.extract().path("limit");
-
         System.out.println("------------------StartingTest---------------------------");
         System.out.println("The value of limit is : " + limit);
         System.out.println("------------------End of Test---------------------------");
 
     }
 
-    // 2) Extract the list of IDs of all products
+    //2. Extract the total
     @Test
     public void test002() {
-
-        List<Integer> listOfIds = response.extract().path("data.id");
-
+        int total = response.extract().path("total");
         System.out.println("------------------StartingTest---------------------------");
-        System.out.println("List of Ids are : " + listOfIds);
+        System.out.println("The total is : " + total);
         System.out.println("------------------End of Test---------------------------");
 
     }
 
-    // 3) Extract first product name from data by providing list index value
+    //3. Extract the name of 5th store
     @Test
     public void test003() {
-        String productName = response.extract().path("data[0].name");
-
+        String name = response.extract().path("data[4].name");
         System.out.println("------------------StartingTest---------------------------");
-        System.out.println("The first product name is : " + productName);
+        System.out.println("The name of 5th store : " + name);
         System.out.println("------------------End of Test---------------------------");
+
     }
 
-    // 4) Get the categories list of the first data
+    //4. Extract the names of all the store
     @Test
     public void test004() {
-        // Homework
-
+        List<String> storeName = response.extract().path("data.name");
         System.out.println("------------------StartingTest---------------------------");
-        System.out.println("The Categories list are : ");
+        System.out.println("The names of the all stores are : " + storeName);
         System.out.println("------------------End of Test---------------------------");
-
     }
 
-    // 5)Print the size of data
+    //5. Extract the storeId of all the store
     @Test
     public void test005() {
-        //Homework
+        List<String> storeIds = response.extract().path("data.id");
         System.out.println("------------------StartingTest---------------------------");
-        System.out.println("The size of the data is : ");
+        System.out.println("The names of the all stores are : " + storeIds);
         System.out.println("------------------End of Test---------------------------");
     }
 
-    // 6) Get All the products Name from data
+    //6. Print the size of the data list
     @Test
     public void test006() {
-        //Homework  (data.name)
-
+        List<Integer> storeId = response.extract().path("data.id");
+        storeId.size();
         System.out.println("------------------StartingTest---------------------------");
-        System.out.println("The names of the products are : ");
+        System.out.println("List of size is : " + storeId);
         System.out.println("------------------End of Test---------------------------");
     }
 
-    // 7) Get all the values for Name == Duracell - AA Batteries (8-Pack)
+    //7. Get all the value of the store where store name = St Cloud
     @Test
     public void test007() {
-        List<HashMap<String, ?>> values = response.extract().path("data.findAll{it.name == 'Duracell - AA Batteries (8-Pack)'}");
+        List<HashMap<String, ?>> values = response.extract().path("data.findAll{it.name=='St Cloud'}");
 
         System.out.println("------------------StartingTest---------------------------");
-        System.out.println("The values for product name 'Duracell - AA Batteries (8-Pack)' are: " + values);
+        System.out.println("all the value of the store where store name = St Cloud are: " + values);
         System.out.println("------------------End of Test---------------------------");
     }
 
-    // 8) Get the price for product Name == Duracell - D Batteries (4-Pack)
+    //8. Get the address of the store where store name = Rochester
     @Test
     public void test008() {
-        List<Double> price = response.extract().path("data.findAll{it.name == 'Duracell - D Batteries (4-Pack)'}.price");
-
+        String storeName = response.extract().path("data[8].address");
         System.out.println("------------------StartingTest---------------------------");
-        System.out.println("The price of product name 'Duracell - D Batteries (4-Pack)' is : " + price);
+        System.out.println("the address of the store where store name = Rochester" + storeName);
         System.out.println("------------------End of Test---------------------------");
+
     }
 
-    // 9) Get the Names of products which have price less than 16.99
+    //9. Get all the services of 8th store
     @Test
     public void test009() {
-        List<String> productsName = response.extract().path("data.findAll{it.price < 16.99}.name");
+        List<HashMap<String, ?>> services = response.extract().path("data[7].services");
 
         System.out.println("------------------StartingTest---------------------------");
-        System.out.println("The names of products that price is less than 16.99 are: " + productsName);
+        System.out.println(" Get all the services of 8th store " + services);
         System.out.println("------------------End of Test---------------------------");
     }
 
-    // 10) Get the manufacturer of products whose name Start = Ene
+    //10. Get storeservices of the store where service name = Windows Store
     @Test
     public void test010() {
-        List<?> menuList = response.extract().path("data.findAll{it.name.startsWith('Ene')}.manufacturer");
-
+        List<HashMap<String, ?>> storeServices = response.extract().path("data.findAll{it.services.findAll{it.name=='Windows Store'}}.services.storeservices");
         System.out.println("------------------StartingTest---------------------------");
-        System.out.println("The manufacturer of products whose name Start = Ene are: " + menuList);
+        System.out.println("  Get storeservices of the store where service name = Windows Store" + storeServices);
         System.out.println("------------------End of Test---------------------------");
     }
 
-    // 11) Get the price of products whose name end with = Vehicles
+    //11. Get all the storeId of all the store
     @Test
     public void test011() {
-        List<?> priceList = response.extract().path("data.findAll{it.name.endsWith('Black')}.price");
+        List<Integer> storeIds = response.extract().path("data.services.storeservices.storeId");
         System.out.println("------------------StartingTest---------------------------");
-        System.out.println("The prices of products whose name end with = Vehicles are: " + priceList);
+        System.out.println("Get all the storeId of all the store" + storeIds);
+        System.out.println("------------------End of Test---------------------------");
+
+    }
+
+    //12. Get id of all the store
+    @Test
+    public void test012() {
+        List<Integer> ids = response.extract().path("data.id");
+        System.out.println("------------------StartingTest---------------------------");
+        System.out.println("Get id of all the store" + ids);
+        System.out.println("------------------End of Test---------------------------");
+
+    }
+
+    //13. Find the store names Where state = ND
+    @Test
+    public void test013() {
+        List<String> store = response.extract().path("data.findAll{it.state =='ND'}.name");
+        System.out.println("------------------StartingTest---------------------------");
+        System.out.println("Find the store names Where state = ND" + store);
+        System.out.println("------------------End of Test---------------------------");
+
+    }
+
+    //14. Find the Total number of services for the store where store name = Rochester
+    @Test
+    public void test014() {
+        List<Integer> store = response.extract().path("data.findAll{it.name =='Rochester'}.name");
+        System.out.println("------------------StartingTest---------------------------");
+        System.out.println("Find the store names Where state = ND" + store.size());
+        System.out.println("------------------End of Test---------------------------");
+
+    }
+
+    //15. Find the createdAt for all services whose name = “Windows Store”
+    @Test
+    public void test015() {
+        List<HashMap<String, ?>> values = response.extract().path("data.findAll{it.services.name == 'Windows Store'}.createdAt");
+        System.out.println("------------------StartingTest---------------------------");
+        System.out.println("The getExact All Services With 'Windows Store' are: " + values);
         System.out.println("------------------End of Test---------------------------");
     }
 
-    // 12) Get the id of product whose name is 'Energizer - N Cell E90 Batteries (2-Pack)'
+    //16. Find the name of all services Where store name = “Fargo”
     @Test
-    public void test012() {
-        List<Integer> productListMap = response.extract().path("data.findAll{it.name == 'Energizer - N Cell E90 Batteries (2-Pack)'}.id");
-
+    public void test016() {
+        List<String> servicesName = response.extract().path("data.findAll{it.name=='Fargo'}.services.name");
         System.out.println("------------------StartingTest---------------------------");
-        System.out.println("The id of product whose name 'Energizer - N Cell E90 Batteries (2-Pack)' is : " +productListMap.get(0));
+        System.out.println(" Find the name of all services Where store name = “Fargo: " + servicesName);
+        System.out.println("------------------End of Test---------------------------");
+    }
+
+    //17. Find the zip of all the store
+    @Test
+    public void test017() {
+        List<String> storeZip = response.extract().path("data.zip");
+        System.out.println("------------------StartingTest---------------------------");
+        System.out.println("Find the zip of all the store : " + storeZip);
+        System.out.println("------------------End of Test---------------------------");
+    }
+
+    //18. Find the zip of store name = Roseville
+    @Test
+    public void test018() {
+        List<Integer> storeZip = response.extract().path("data.findAll{it.name=='Roseville'}.zip");
+        System.out.println("------------------StartingTest---------------------------");
+        System.out.println("Find the zip of store name = Roseville: " + storeZip);
+        System.out.println("------------------End of Test---------------------------");
+    }
+
+    //19. Find the storeservices details of the service name = Magnolia Home Theater
+    @Test
+    public void test019() {
+        List<String> storeServices = response.extract().path("data.findAll{it.services.findAll{it.name='Magnolia Home Theater'}}.services.storeservices");
+        System.out.println("------------------StartingTest---------------------------");
+        System.out.println("Find the storeservices details of the service name = Magnolia Home Theater : " + storeServices);
+        System.out.println("------------------End of Test---------------------------");
+    }
+
+    //20. Find the lat of all the stores
+    @Test
+    public void test020() {
+        List<HashMap<String, ?>> lat = response.extract().path("data.lat");
+        System.out.println("------------------StartingTest---------------------------");
+        System.out.println("Find the lat of all the stores : " + lat);
         System.out.println("------------------End of Test---------------------------");
     }
 

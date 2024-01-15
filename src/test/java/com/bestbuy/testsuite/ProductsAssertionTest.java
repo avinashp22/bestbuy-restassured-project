@@ -34,62 +34,68 @@ public class ProductsAssertionTest {
 //17. Verify the price = 4.99 of forth product
 //18. Verify the Product name = Duracell - D Batteries (4-Pack) of 6th product
 //19. Verify the ProductId = 333179 for the 9th product
-//20. Verify the prodctId = 346575 have 5 categories
+//20. Verify the productId = 346575 have 5 categories
 
 
-
-    // 1) Verify that the products of limit is equal to 10
+    //11. Verify the if the total is equal to 51958
     @Test
-    public void test001() {
+    public void test011() {
+        response.body("total", equalTo(51958));
+    }
+
+    //12. Verify the if the stores of limit is equal to 10
+    @Test
+    public void test012() {
         response.body("limit", equalTo(10));
     }
 
-    // 2) Verify that the products of total is = 51957
+    //13. Check the single ‘Name’ in the Array list (Duracell - AAA Batteries (4-Pack))
     @Test
-    public void test002() {
-        //Homework
-    }
-
-    // 3) Check the Name 'Duracell - AA Batteries (8-Pack)' is available in List of product's name
-    @Test
-    public void test003() {
-        response.body("data.name", hasItem("Duracell - AA Batteries (8-Pack)"));
-    }
-
-    // 4) Check Multiple Names (Energizer - MAX Batteries AA (4-Pack), Duracell - 9V Batteries (2-Pack)) are available in list of product's name
-    @Test
-    public void test004() {
-        //Homework
-    }
-
-    // 5) Verify the 'name' field inside first categories map for the first data (Checking Values inside Map using hasKey(entityType))
-    @Test
-    public void test005() {
-        response.body("data[0].categories[0]", hasKey("name"));
+    public void test013() {
+        response.body("data.name", hasItem("Duracell - AAA Batteries (4-Pack)"));
 
     }
 
-    // 6) Check entry 'manufacturer = Energizer' is inside map of product name is 'Energizer - N Cell E90 Batteries (2-Pack)'
+    //14. Check the multiple ‘Names’ in the ArrayList (Duracell - AA 1.5V CopperTop Batteries (4-Pack), Duracell - AA Batteries (8-Pack), Energizer - MAX Batteries AA (4-Pack))
     @Test
-    public void test006() {
-        response.body("data.findAll{it.name == 'Energizer - N Cell E90 Batteries (2-Pack)'}", hasItem(hasEntry("manufacturer", "Energizer")));
-
+    public void test014() {
+        response.body("data.name", hasItems("Duracell - AA 1.5V CopperTop Batteries (4-Pack)", "Duracell - AA Batteries (8-Pack)", "Energizer - MAX Batteries AA (4-Pack)"));
     }
 
-    // 7) Checking multiple values in the same statement
+    //15. Verify the productId=150115 inside categories of the third name is “Household Batteries”
     @Test
-    public void test007() {
-        response.body("limit", equalTo(10))
-                .body("data.name", hasItem("Duracell - AA Batteries (8-Pack)"))
-                .body("data[0].categories[0]", hasKey("name"));
+    public void test015() {
+
+        response.body("data[3].categories[2].name", equalTo("Household Batteries"));
     }
 
-    // 8) Logical Assertions
+    //16. Verify the categories second name = “Housewares” of productID = 333179
     @Test
-    public void test008() {
-        response.body("limit",equalTo(10))
-                .body("limit", lessThan(11))
-                .body("limit", greaterThan(9))
-                .body("limit", greaterThanOrEqualTo(10));
+    public void test016() {
+        response.body("data[8].categories[1].name", equalTo("Housewares"));
+    }
+
+    //17. Verify the price = 4.99 of forth product
+    @Test
+    public void test017() {
+        response.body("data[3].price", equalTo(4.99f));
+    }
+
+    //18. Verify the Product name = Duracell - D Batteries (4-Pack) of 6th product
+    @Test
+    public void test018() {
+        response.body("data[5].name", equalTo("Duracell - D Batteries (4-Pack)"));
+    }
+
+    //19. Verify the ProductId = 333179 for the 9th product
+    @Test
+    public void test019() {
+        response.body("data[8].id", equalTo(333179));
+    }
+
+    //20. Verify the productId = 346575 have 5 categories
+    @Test
+    public void test020() {
+        response.body("data[9].categories", hasSize(5));
     }
 }
