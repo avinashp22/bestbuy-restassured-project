@@ -18,7 +18,7 @@ public class ProductsCRUDTest extends ProductsTestBase {
     static String description = "Latest Model";
     static String manufacturer = "Apple";
     static String model = "ABC123";
-    static String url = "https://pisces.bbystatic.com/" + TestUtils.getRandomValue() + ".jpg;maxHeight=640;maxWidth=550";
+    static String url = "https://google.com/" + TestUtils.getRandomValue() + ".jpg";
     static String image = TestUtils.getRandomValue();
     static int productId;
 
