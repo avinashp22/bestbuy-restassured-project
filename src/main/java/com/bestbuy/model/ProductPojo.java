@@ -2,26 +2,24 @@ package com.bestbuy.model;
 
 public class ProductPojo {
 
-    private int id;
+
     private String name;
     private String type;
     private double price;
     private String upc;
-    private double shipping;
+    private int shipping;
     private String description;
     private String manufacturer;
     private String model;
     private String url;
     private String image;
-    private String createdAt;
-    private String updatedAt;
 
-    public int getId() {
-        return id;
+    public int getShipping() {
+        return shipping;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setShipping(int shipping) {
+        this.shipping = shipping;
     }
 
     public String getName() {
@@ -56,13 +54,7 @@ public class ProductPojo {
         this.upc = upc;
     }
 
-    public double getShipping() {
-        return shipping;
-    }
 
-    public void setShipping(double shipping) {
-        this.shipping = shipping;
-    }
 
     public String getDescription() {
         return description;
@@ -102,21 +94,5 @@ public class ProductPojo {
 
     public void setImage(String image) {
         this.image = image;
-    }
-
-    public String getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public String getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
     }
 }

@@ -1,10 +1,10 @@
 package com.bestbuy.model;
 
-import java.util.Map;
+import java.util.HashMap;
 
 public class StorePojo {
 
-    private int id;
+
     private String name;
     private String type;
     private String address;
@@ -15,18 +15,7 @@ public class StorePojo {
     private double lng;
     private double lat;
     private String hours;
-    private String createdAt;
-    private String updatedAt;
-    private Map<String,Object> services;
-    private String storeservices;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+    private HashMap<String, Object> services;
 
     public String getName() {
         return name;
@@ -108,35 +97,11 @@ public class StorePojo {
         this.hours = hours;
     }
 
-    public String getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public String getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public Map<String, Object> getServices() {
+    public HashMap<String, Object> getServices() {
         return services;
     }
 
-    public void setServices(Map<String, Object> services) {
+    public void setServices(HashMap<String, Object> services) {
         this.services = services;
-    }
-
-    public String getStoreservices() {
-        return storeservices;
-    }
-
-    public void setStoreservices(String storeservices) {
-        this.storeservices = storeservices;
     }
 }

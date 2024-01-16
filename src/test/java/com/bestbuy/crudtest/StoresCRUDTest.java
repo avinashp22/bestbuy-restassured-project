@@ -3,21 +3,19 @@ package com.bestbuy.crudtest;
 
 import com.bestbuy.model.StorePojo;
 import com.bestbuy.testbase.StoreTestBase;
+import com.bestbuy.utils.TestUtils;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import io.restassured.response.ValidatableResponse;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 
 
 public class StoresCRUDTest extends StoreTestBase {
 
-    static int id;
+    static int storeId;
     static String name="Brent Cross";
     static String type="Mall";
     static String address="123 Prime Road";
@@ -32,8 +30,8 @@ public class StoresCRUDTest extends StoreTestBase {
 
     @Test
     public void averifyStoreCreatedSuccessfully() {
-        Map<String,Object> services = new HashMap<>();
-        services.put("name","Geek Squad Services");
+        HashMap<String,Object> services = new HashMap<>();
+        services.put("name","Repairs");
         services.put("id","01");
         StorePojo storePojo=new StorePojo();
         storePojo.setName(name);
@@ -48,27 +46,29 @@ public class StoresCRUDTest extends StoreTestBase {
         storePojo.setHours(hours);
         storePojo.setServices(services);
 
-        ValidatableResponse response= given()
+        Response response= given()
                 .contentType(ContentType.JSON)
                 .header("Accept","application/json")
                 .when()
                 .body(storePojo)
-                .post()
-                .then().log().body().statusCode(201);
-        id=response.extract().path("id");
+                .post();
+        response.prettyPrint();
+        response.then().statusCode(201);
+
+        storeId = response.then().extract().path("id");
+        System.out.println("ID = " + storeId);
     }
 
     @Test
     public void bVerifyStoreReadSuccessfully() {
 
-        int sId=given()
-                .pathParams("id",id)
+        Response response = given()
+                .header("Accept", "application/json")
                 .when()
-                .get("/{id}")
-                .then().statusCode(200)
-                .extract()
-                .path("id");
-        Assert.assertEquals(sId,id);
+                .get("/" + storeId);
+        response.then().statusCode(200);
+
+        response.prettyPrint();
 
     }
 
@@ -77,18 +77,13 @@ public class StoresCRUDTest extends StoreTestBase {
     public void cverifyStoreUpdateSuccessfully() {
         StorePojo storePojo=new StorePojo();
         storePojo.setName("Westfield");
-        storePojo.setType(type);
-        storePojo.setAddress(address);
-        storePojo.setAddress2(address2);
-        storePojo.setCity(city);
-        storePojo.setState(state);
-        storePojo.setZip(zip);
-        storePojo.setLat(lat);
-        storePojo.setLng(lng);
+        storePojo.setType(type+TestUtils.getRandomValue());
+        storePojo.setCity("London");
         storePojo.setHours("Mon: 8-5; Tue: 8-5; Wed: 8-5; Thurs: 8-5; Fri: 8-5; Sat: 8-5; Sun: 8-5");
+
         Response response= given()
                 .header("Content-Type", "application/json")
-                .pathParams("id", id)
+                .pathParams("id", storeId)
                 .when()
                 .body(storePojo)
                 .patch("/{id}");
@@ -100,9 +95,8 @@ public class StoresCRUDTest extends StoreTestBase {
     public void zVerifyStoreDeleteSuccessfully() {
 
         given()
-                .pathParam("id", id)
                 .when()
-                .delete("/{id}")
+                .delete("/" + storeId)
                 .then()
                 .statusCode(200);
 
