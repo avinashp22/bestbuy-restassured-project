@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 public class StorePojo {
 
-
     private String name;
     private String type;
     private String address;

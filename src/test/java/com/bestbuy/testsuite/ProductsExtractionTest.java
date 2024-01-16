@@ -10,9 +10,6 @@ import java.util.List;
 
 import static io.restassured.RestAssured.given;
 
-/*
- *  Created by Jay
- */
 public class ProductsExtractionTest {
 
     static ValidatableResponse response;
@@ -48,9 +45,6 @@ public class ProductsExtractionTest {
 //39. Find the createdAt for all categories products whose price > 5.99
 //40. Find the uri of all the products
 
-
-
-
     //21. Extract the limit
     @Test
     public void test001() {
@@ -58,7 +52,6 @@ public class ProductsExtractionTest {
         System.out.println("------------------StartingTest---------------------------");
         System.out.println("The limit is : " + limit);
         System.out.println("------------------End of Test---------------------------");
-
     }
 
     //22. Extract the total
@@ -68,7 +61,6 @@ public class ProductsExtractionTest {
         System.out.println("------------------StartingTest---------------------------");
         System.out.println("The total is : " + total);
         System.out.println("------------------End of Test---------------------------");
-
     }
 
     //23. Extract the name of 5th product
@@ -78,7 +70,6 @@ public class ProductsExtractionTest {
         System.out.println("------------------StartingTest---------------------------");
         System.out.println("The name of 5th product is : " + name);
         System.out.println("------------------End of Test---------------------------");
-
     }
 
     //24. Extract the names of all the products
@@ -97,7 +88,6 @@ public class ProductsExtractionTest {
         System.out.println("------------------StartingTest---------------------------");
         System.out.println("Extract the productId of all the products: " + productId);
         System.out.println("------------------End of Test---------------------------");
-
     }
 
     //26. Print the size of the data list
@@ -158,7 +148,7 @@ public class ProductsExtractionTest {
     //32. Get id of all the all categories of all the products
     @Test
     public void test012() {
-        List<Integer> categoryIds= response.extract().path("data.categories.id");
+        List<Integer> categoryIds = response.extract().path("data.categories.id");
         System.out.println("------------------StartingTest---------------------------");
         System.out.println("Get id of all the all categories of all the products : " + categoryIds);
         System.out.println("------------------End of Test---------------------------");
@@ -167,7 +157,7 @@ public class ProductsExtractionTest {
     //33. Find the product names Where type = HardGood
     @Test
     public void test013() {
-        List<String>productNames=response.extract().path("data.findAll{it.type=='HardGood'}.name");
+        List<String> productNames = response.extract().path("data.findAll{it.type=='HardGood'}.name");
         System.out.println("------------------StartingTest---------------------------");
         System.out.println("Find the product names Where type = HardGood: " + productNames);
         System.out.println("------------------End of Test---------------------------");
@@ -176,7 +166,7 @@ public class ProductsExtractionTest {
     //34. Find the Total number of categories for the product where product name = Duracell - AA 1.5V CopperTop Batteries (4-Pack)
     @Test
     public void test014() {
-        List<String>numberOfCategories=response.extract().path("data.findAll{it.productName='Duracell - AA 1.5V CopperTop Batteries (4-Pack)'}.categories");
+        List<String> numberOfCategories = response.extract().path("data.findAll{it.productName='Duracell - AA 1.5V CopperTop Batteries (4-Pack)'}.categories");
         System.out.println("------------------StartingTest---------------------------");
         System.out.println("Find the Total number of categories for the product where product name = Duracell - AA 1.5V CopperTop Batteries (4-Pack) : " + numberOfCategories);
         System.out.println("------------------End of Test---------------------------");
@@ -185,25 +175,25 @@ public class ProductsExtractionTest {
     //35. Find the createdAt for all products whose price < 5.49
     @Test
     public void test015() {
-        List<String>createdAt=response.extract().path("data.findAll{it.price<5.49}.createdAt");
+        List<String> createdAt = response.extract().path("data.findAll{it.price<5.49}.createdAt");
         System.out.println("------------------StartingTest---------------------------");
-        System.out.println("Find the createdAt for all products whose price < 5.49 : " + createdAt );
+        System.out.println("Find the createdAt for all products whose price < 5.49 : " + createdAt);
         System.out.println("------------------End of Test---------------------------");
     }
 
     //36. Find the name of all categories Where product name = “Energizer - MAX Batteries AA (4-Pack)”
     @Test
     public void test016() {
-        List<String>categories=response.extract().path("data.findAll{it.name=='Energizer - MAX Batteries AA (4-Pack)'}.categories");
+        List<String> categories = response.extract().path("data.findAll{it.name=='Energizer - MAX Batteries AA (4-Pack)'}.categories");
         System.out.println("------------------StartingTest---------------------------");
-        System.out.println("Find the name of all categories Where product name = “Energizer - MAX Batteries AA (4-Pack): " +categories );
+        System.out.println("Find the name of all categories Where product name = “Energizer - MAX Batteries AA (4-Pack): " + categories);
         System.out.println("------------------End of Test---------------------------");
     }
 
     //37. Find the manufacturer of all the products
     @Test
     public void test017() {
-        List<String>manufacturer=response.extract().path("data.manufacturer");
+        List<String> manufacturer = response.extract().path("data.manufacturer");
         System.out.println("------------------StartingTest---------------------------");
         System.out.println("Find the manufacturer of all the products : " + manufacturer);
         System.out.println("------------------End of Test---------------------------");
@@ -212,16 +202,16 @@ public class ProductsExtractionTest {
     //38. Find the image of products whose manufacturer is = Energizer
     @Test
     public void test018() {
-        List<String>productImage=response.extract().path("data.findAll{it.manufacturer=='Energizer'}.image");
+        List<String> productImage = response.extract().path("data.findAll{it.manufacturer=='Energizer'}.image");
         System.out.println("------------------StartingTest---------------------------");
-        System.out.println("Find the image of products whose manufacturer is = Energizer " +productImage);
+        System.out.println("Find the image of products whose manufacturer is = Energizer " + productImage);
         System.out.println("------------------End of Test---------------------------");
     }
 
     //39. Find the createdAt for all categories products whose price > 5.99
     @Test
     public void test019() {
-        List<HashMap<String,?>> createdAt = response.extract().path("data.findAll{it.price > 5.99}.createdAt");
+        List<HashMap<String, ?>> createdAt = response.extract().path("data.findAll{it.price > 5.99}.createdAt");
         System.out.println("------------------StartingTest---------------------------");
         System.out.println(" Find the createdAt for all categories products whose price > 5.99" + createdAt);
         System.out.println("------------------End of Test---------------------------");
@@ -232,7 +222,7 @@ public class ProductsExtractionTest {
     public void test020() {
         List<String> url = response.extract().path("data.url");
         System.out.println("------------------StartingTest---------------------------");
-        System.out.println("Find the uri of all the products " +url);
+        System.out.println("Find the uri of all the products " + url);
         System.out.println("------------------End of Test---------------------------");
     }
 

@@ -4,7 +4,6 @@ import com.bestbuy.utils.PropertyReader;
 import io.restassured.RestAssured;
 import org.testng.annotations.BeforeClass;
 
-
 public class ProductsTestBase {
 
     @BeforeClass
@@ -15,7 +14,6 @@ public class ProductsTestBase {
         RestAssured.baseURI = PropertyReader.getInstance().getProperty("baseUrl");
         RestAssured.port = 3030;
         RestAssured.basePath = PropertyReader.getInstance().getProperty("productPath");
-
 
     }
 }

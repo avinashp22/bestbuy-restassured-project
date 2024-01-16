@@ -8,9 +8,6 @@ import org.testng.annotations.Test;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
-/**
- * Created by Jay
- */
 public class ProductsAssertionTest {
 
     static ValidatableResponse response;
@@ -25,8 +22,8 @@ public class ProductsAssertionTest {
                 .then().statusCode(200);
     }
 
-//11. Verify the if the total is equal to 51957
-//12. Verify the if the stores of limit is equal to 10
+//11. Verify if the total is equal to 51957
+//12. Verify if the stores of limit is equal to 10
 //13. Check the single ‘Name’ in the Array list (Duracell - AAA Batteries (4-Pack))
 //14. Check the multiple ‘Names’ in the ArrayList (Duracell - AA 1.5V CopperTop Batteries (4-Pack), Duracell - AA Batteries (8-Pack), Energizer - MAX Batteries AA (4-Pack))
 //15. Verify the productId=150115 inside categories of the third name is “Household Batteries”
@@ -37,13 +34,13 @@ public class ProductsAssertionTest {
 //20. Verify the productId = 346575 have 5 categories
 
 
-    //11. Verify the if the total is equal to 51958
+    //11. Verify if the total is equal to 51958
     @Test
     public void test011() {
         response.body("total", equalTo(51958));
     }
 
-    //12. Verify the if the stores of limit is equal to 10
+    //12. Verify if the stores of limit is equal to 10
     @Test
     public void test012() {
         response.body("limit", equalTo(10));
@@ -53,7 +50,6 @@ public class ProductsAssertionTest {
     @Test
     public void test013() {
         response.body("data.name", hasItem("Duracell - AAA Batteries (4-Pack)"));
-
     }
 
     //14. Check the multiple ‘Names’ in the ArrayList (Duracell - AA 1.5V CopperTop Batteries (4-Pack), Duracell - AA Batteries (8-Pack), Energizer - MAX Batteries AA (4-Pack))
@@ -65,7 +61,6 @@ public class ProductsAssertionTest {
     //15. Verify the productId=150115 inside categories of the third name is “Household Batteries”
     @Test
     public void test015() {
-
         response.body("data[3].categories[2].name", equalTo("Household Batteries"));
     }
 

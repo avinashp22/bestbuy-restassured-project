@@ -4,15 +4,10 @@ import io.restassured.RestAssured;
 import io.restassured.response.ValidatableResponse;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-
 import java.util.HashMap;
 import java.util.List;
-
 import static io.restassured.RestAssured.given;
 
-/*
- *  Created by Jay
- */
 public class StoresExtractionTest {
 
     static ValidatableResponse response;
@@ -26,7 +21,6 @@ public class StoresExtractionTest {
                 .get("/stores")
                 .then().statusCode(200);
     }
-
 
 //1. Extract the limit
 //2. Extract the total
@@ -50,8 +44,6 @@ public class StoresExtractionTest {
 //20. Find the lat of all the stores
 
 
-
-
     //1. Extract the limit
     @Test
     public void test001() {
@@ -59,7 +51,6 @@ public class StoresExtractionTest {
         System.out.println("------------------StartingTest---------------------------");
         System.out.println("The limit is : " + limit);
         System.out.println("------------------End of Test---------------------------");
-
     }
 
     //2. Extract the total
@@ -69,7 +60,6 @@ public class StoresExtractionTest {
         System.out.println("------------------StartingTest---------------------------");
         System.out.println("The total is : " + total);
         System.out.println("------------------End of Test---------------------------");
-
     }
 
     //3. Extract the name of 5th store
@@ -79,7 +69,6 @@ public class StoresExtractionTest {
         System.out.println("------------------StartingTest---------------------------");
         System.out.println("The name of 5th store is : " + name);
         System.out.println("------------------End of Test---------------------------");
-
     }
 
     //4. Extract the names of all the store
@@ -127,7 +116,6 @@ public class StoresExtractionTest {
         System.out.println("------------------StartingTest---------------------------");
         System.out.println("the address of the store where store name = Rochester" + storeName);
         System.out.println("------------------End of Test---------------------------");
-
     }
 
     //9. Get all the services of 8th store
@@ -156,7 +144,6 @@ public class StoresExtractionTest {
         System.out.println("------------------StartingTest---------------------------");
         System.out.println("Get all the storeId of all the store" + storeIds);
         System.out.println("------------------End of Test---------------------------");
-
     }
 
     //12. Get id of all the store
@@ -166,7 +153,6 @@ public class StoresExtractionTest {
         System.out.println("------------------StartingTest---------------------------");
         System.out.println("Get id of all the store" + ids);
         System.out.println("------------------End of Test---------------------------");
-
     }
 
     //13. Find the store names Where state = ND
@@ -176,7 +162,6 @@ public class StoresExtractionTest {
         System.out.println("------------------StartingTest---------------------------");
         System.out.println("Find the store names Where state = ND" + store);
         System.out.println("------------------End of Test---------------------------");
-
     }
 
     //14. Find the Total number of services for the store where store name = Rochester
@@ -186,7 +171,6 @@ public class StoresExtractionTest {
         System.out.println("------------------StartingTest---------------------------");
         System.out.println("Total number of services for the store where store name = Rochester" + store.size());
         System.out.println("------------------End of Test---------------------------");
-
     }
 
     //15. Find the createdAt for all services whose name = “Windows Store”

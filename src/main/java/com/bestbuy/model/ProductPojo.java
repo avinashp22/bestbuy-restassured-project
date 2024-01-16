@@ -2,7 +2,6 @@ package com.bestbuy.model;
 
 public class ProductPojo {
 
-
     private String name;
     private String type;
     private double price;
@@ -53,8 +52,6 @@ public class ProductPojo {
     public void setUpc(String upc) {
         this.upc = upc;
     }
-
-
 
     public String getDescription() {
         return description;
